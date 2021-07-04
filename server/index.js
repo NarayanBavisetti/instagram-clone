@@ -1,0 +1,36 @@
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv")
+const User = require("./models/userSchema")
+dotenv.config({path: "./.env"})
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+const DB = process.env.DATABASE_URL;
+mongoose.connect(DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex:true
+} )
+.then(() => console.log("DB connected"))
+.catch((err) =>
+    console.log(err)
+)
+
+function customMiddleware(req,res,next){
+    console.log("hi bro!!!!")
+    next()
+}
+
+app.use(express.json())
+app.use(require("./routes/auth"))
+// app.get("/", (req, res) => {
+//   res.send("hi bro");
+// });
+// app.get("/about", customMiddleware,(req, res) => {
+//     res.send("hi about");
+//   });
+app.listen(PORT, () => {
+  console.log(`PORT is running at ${PORT}`);
+});
