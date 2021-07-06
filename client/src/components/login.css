@@ -1,0 +1,29 @@
+.login {
+  display: flex;
+  margin-top: 20px;
+  /* width: 800px; */
+}
+.logo {
+  border: 1px solid black;
+  margin-top: 2px;
+  width: 400px;
+  text-align: center;
+}
+.pic {
+  width: 200px;
+  margin-top: 20px;
+}
+.pdivider {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.divider {
+  width: 65px;
+  height: 0px;
+  margin-top: 10px;
+  border: 1px solid #BDBDBD;
+ 
+  
+}
