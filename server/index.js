@@ -1,7 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv")
-const User = require("./models/userSchema")
+const User = require("./models/userSchema");
+const Post = require("./models/postSchema");
 dotenv.config({path: "./.env"})
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -18,19 +19,11 @@ mongoose.connect(DB, {
     console.log(err)
 )
 
-function customMiddleware(req,res,next){
-    console.log("hi bro!!!!")
-    next()
-}
 
 app.use(express.json())
 app.use(require("./routes/auth"))
-// app.get("/", (req, res) => {
-//   res.send("hi bro");
-// });
-// app.get("/about", customMiddleware,(req, res) => {
-//     res.send("hi about");
-//   });
+app.use(require("./routes/posts"))
+
 app.listen(PORT, () => {
   console.log(`PORT is running at ${PORT}`);
 });

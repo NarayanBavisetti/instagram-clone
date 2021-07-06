@@ -3,7 +3,8 @@ const User = require("../models/userSchema");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken")
-const dotenv = require("dotenv")
+const dotenv = require("dotenv");
+const verify = require("../middleware/reqLogin");
 
 
 dotenv.config({path : "../.env"})
@@ -11,6 +12,7 @@ const secret = process.env.JWT_SECRET;
 router.get("/", (req, res) => {
   res.send("no bro");
 });
+
 
 router.post("/signup", (req, res) => {
   const { name, email, password, confirmpassword } = req.body;
@@ -64,5 +66,7 @@ router.post("/login", (req, res) => {
       console.log(err);
   })
 });
+
+
 
 module.exports = router;
