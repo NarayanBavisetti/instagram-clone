@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import "./login.css";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
-import { black } from "color-name";
+import { Link, useHistory } from "react-router-dom";
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -22,6 +22,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+
+  const history = useHistory();
+  const[email,setEmail] = useState("")
+  const[password,setPassword] = useState("")
+const [error,setError] =useState("")
+
+  const postData = () => {
+    fetch("http://localhost:5000/login", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        if (data.error) {
+          setError(data.error);
+        } 
+        else  {
+          // setError(data.msg)
+          history.push("/")
+         
+        }
+      });
+  };
   const classes = useStyles();
   return (
     <Grid container>
@@ -45,7 +75,9 @@ export default function Login() {
               src="./assets/images/logo.png"
               alt="instagram"
             />
+            
             <div>
+            {error && <Alert severity="warning">{error}</Alert>  }
               <TextField
                 className={classes.input}
                 required
@@ -54,6 +86,8 @@ export default function Login() {
                 type="email"
                 //   defaultValue="enter email"
                 variant="outlined"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
               />
 
               <TextField
@@ -63,11 +97,14 @@ export default function Login() {
                 type="password"
                 autoComplete="current-password"
                 variant="outlined"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
               />
               <Button
                 className={classes.button}
                 variant="contained"
                 color="secondary"
+                onClick={() => postData()}
               >
                 Sign In
               </Button>

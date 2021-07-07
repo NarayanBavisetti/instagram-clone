@@ -56,7 +56,8 @@ router.post("/login", (req, res) => {
     if (doMatch) {
         // res.status(200).json({ msg: "User logged in successfully" });
         const token = jwt.sign({_id:user._id}, secret)
-        res.json({token})
+        const {_id,name,email} = user
+        res.json({token,user:{_id,name,email}})
       } else {
         return res.status(400).json({ error: "Invalid credentials" });
       }
@@ -66,7 +67,6 @@ router.post("/login", (req, res) => {
       console.log(err);
   })
 });
-
 
 
 module.exports = router;
