@@ -33,6 +33,9 @@ export default function Navbar() {
           <NavLink to="/liked">
             <i class="far fa-heart"></i>
           </NavLink>
+          {/* <NavLink to="/create">
+          <i class="fas fa-plus-square"></i>
+          </NavLink> */}
           {/* {user ?<NavLink to="/profile"><i class="far fa-user"></i></NavLink> :       <NavLink to="/login">Login/Sign Up</NavLink> } */}
         </Grid>
       </Grid>

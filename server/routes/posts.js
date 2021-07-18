@@ -5,15 +5,15 @@ const router = express.Router();
 
 
 router.post("/create", verify,((req,res) => {
-    const {title, body} = req.body;
-    if(!title || !body){
+    const { body , photo} = req.body;
+    if(!body || !photo){
         res.status(400).json({error:'please fill all the details'})
     }
     // console.log(req.user)
     req.user.password = undefined;
     const post = new Post({
-        title,
         body,
+        photo,
         postedBy: req.user
     })
     post.save().then(data => {

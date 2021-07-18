@@ -46,6 +46,8 @@ const [error,setError] =useState("")
           setError(data.error);
         } 
         else  {
+          localStorage.setItem("jwt",data.token)
+          localStorage.setItem("user",JSON.stringify(data.user))
           // setError(data.msg)
           history.push("/")
          
