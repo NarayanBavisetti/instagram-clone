@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import "./login.css";
 import Button from "@material-ui/core/Button";
@@ -6,6 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link, useHistory } from "react-router-dom";
 import Alert from "@material-ui/lab/Alert";
+import {UserContext} from "../components/MainComponent"
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -27,8 +28,8 @@ export default function Login() {
   const[email,setEmail] = useState("")
   const[password,setPassword] = useState("")
 const [error,setError] =useState("")
-
-  const postData = () => {
+const {state,dispatch} = useContext(UserContext)
+  const postData = async() => {
     fetch("http://localhost:5000/login", {
       method: "post",
       headers: {
@@ -48,6 +49,8 @@ const [error,setError] =useState("")
         else  {
           localStorage.setItem("jwt",data.token)
           localStorage.setItem("user",JSON.stringify(data.user))
+          dispatch({type:"USER",payload:data.user})
+       
           // setError(data.msg)
           history.push("/")
          

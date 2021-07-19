@@ -6,10 +6,11 @@ const router = express.Router();
 
 router.post("/create", verify,((req,res) => {
     const { body , photo} = req.body;
+    
     if(!body || !photo){
         res.status(400).json({error:'please fill all the details'})
     }
-    // console.log(req.user)
+    console.log( body , photo)
     req.user.password = undefined;
     const post = new Post({
         body,
@@ -24,7 +25,7 @@ router.post("/create", verify,((req,res) => {
     })
 }))
 
-router.get("/allposts",(req,res) => {
+router.get("/allposts",verify,(req,res) => {
     Post.find().populate("postedBy","name")
     .then(data => {
         res.json({posts:data})
