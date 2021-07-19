@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, useHistory } from "react-router-dom";
 import Login from "./Login";
 import Signup from "./Signup";
 import Navbar from "./Navbar/Navbar";
-import profile from "./profile";
+import Profile from "./profile";
 import Home from "./Home";
 import CreatePost from "./CreatePost";
 import { initialValue, reducer } from "../Context/useReducer";
@@ -30,7 +30,7 @@ export default function Main() {
       <PrivateRoute exact path="/" component={Home} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/signup" component={Signup} />
-      <PrivateRoute exact path="/profile" component={profile} />
+      <PrivateRoute exact path="/profile" component={Profile} />
       <PrivateRoute exact path="/create" component={CreatePost} />
     </Router>
     </UserContext.Provider>
